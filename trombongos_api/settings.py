@@ -1,20 +1,12 @@
 from pathlib import Path
+from decouple import Csv, config
+from dj_database_url import parse as db_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rf)0=7@7*^e9_w4kw_h%wwaccrvkpxuf42&uf$jz1bfx42snc='
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-# Application definition
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=True, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -63,14 +55,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'trombongos_api.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'trbapidb',
-        'USER': 'trbapiuser',
-        'PASSWORD': 'ooHeiwaish9bepei',
-        'HOST': '33339.hostserv.eu',
-        'PORT': '5432',
-    }
+    'default': config(
+        'DATABASE_URL',
+        default='sqlite:///db.sqlite',
+        cast=db_url
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
