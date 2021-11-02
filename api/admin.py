@@ -7,21 +7,21 @@ class SeasonAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "date_start", "date_end", "sort", "active", "public")
+    list_display = ("name", "date_start", "date_end", "sort", "active", "public")
 
 
 class EveningAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "date", "category")
+    list_display = ("name", "date", "season", "category")
 
 
 class TransportAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "active")
+    list_display = ("name", "active")
 
 
 class EventAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
         "name",
+        "season",
         "category",
         "date",
         "transport",

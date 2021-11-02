@@ -17,7 +17,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class EveningSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evening
-        fields = ["id", "name", "date", "category", "url"]
+        fields = ["id", "name", "date", "category", "season", "url"]
 
 
 class TransportSerializer(serializers.ModelSerializer):
@@ -45,6 +45,39 @@ class EventSerializer(serializers.ModelSerializer):
             "play",
             "trailer",
             "information",
+            "season",
+            "public",
+            "active",
+            "fix",
+            "url"
+        ]
+
+
+class TourSerializer(serializers.ModelSerializer):
+    evening = EveningSerializer(read_only=False, many=False)
+    transport = TransportSerializer(read_only=False, many=False)
+    category = CategorySerializer(read_only=False, many=False)
+    season = SeasonSerializer(read_only=False, many=False)
+
+    class Meta:
+        model = Event
+        fields = [
+            "id",
+            "name",
+            "category",
+            "evening",
+            "date",
+            "transport",
+            "ca_makeup",
+            "makeup",
+            "warehouse",
+            "sun",
+            "gathering",
+            "ca_play",
+            "play",
+            "trailer",
+            "information",
+            "season",
             "public",
             "active",
             "fix",

@@ -2,7 +2,6 @@ from pathlib import Path
 from decouple import Csv, config
 from dj_database_url import parse as db_url
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
@@ -18,6 +17,7 @@ INSTALLED_APPS = [
 
     # Third Party
     'rest_framework',
+    'drf_multiple_model',
 
     # Project
     'api',

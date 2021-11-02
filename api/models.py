@@ -49,6 +49,7 @@ class Evening(models.Model):
     name = models.CharField(max_length=10, null=False, blank=False, choices=DAYS)
     date = models.DateField()
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return "%s %s" % (self.name, self.date)
@@ -74,6 +75,7 @@ class Event(models.Model):
         ordering = ('-date', 'play')
 
     name = models.CharField(max_length=512, null=False, blank=False)
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     evening = models.ForeignKey(Evening, on_delete=models.DO_NOTHING)
     date = models.DateField()

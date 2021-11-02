@@ -1,7 +1,8 @@
 from rest_framework import viewsets
 from rest_framework import permissions
 from .models import Category, Evening, Transport, Event, Season
-from .serializers import CategorySerializer, EveningSerializer, TransportSerializer, EventSerializer, SeasonSerializer
+from .serializers import CategorySerializer, EveningSerializer, TransportSerializer, EventSerializer, SeasonSerializer, \
+    TourSerializer
 
 
 class SeasonViewSet(viewsets.ModelViewSet):
@@ -51,4 +52,14 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all().order_by('date', 'play')
     serializer_class = EventSerializer
     permission_classes = [permissions.AllowAny]
+    http_method_names = ['get']
+
+
+class TourViewSet(viewsets.ModelViewSet):
+    """
+    API Endpoint to see a hole Tour
+    """
+    # Todo write query for this specific case with for and so on like in PHP
+    queryset = Event.objects.filter(season__active=True)
+    serializer_class = TourSerializer
     http_method_names = ['get']
