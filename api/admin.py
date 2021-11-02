@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Category, Evening, Transport, Event
+from .models import Category, Evening, Transport, Event, Season
+
+
+class SeasonAdmin(admin.ModelAdmin):
+    list_display = ("id", "name", "active")
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -36,6 +40,7 @@ class EventAdmin(admin.ModelAdmin):
     )
 
 
+admin.site.register(Season, SeasonAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Evening, EveningAdmin)
 admin.site.register(Transport, TransportAdmin)

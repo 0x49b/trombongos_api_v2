@@ -1,8 +1,17 @@
-from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from .models import Category, Evening, Transport, Event
-from .serializers import CategorySerializer, EveningSerializer, TransportSerializer, EventSerializer
+from .models import Category, Evening, Transport, Event, Season
+from .serializers import CategorySerializer, EveningSerializer, TransportSerializer, EventSerializer, SeasonSerializer
+
+
+class SeasonViewSet(viewsets.ModelViewSet):
+    """
+    API Endpoint to view Seasons
+    """
+    queryset = Season.objects.all()
+    serializer_class = SeasonSerializer
+    permission_classes = [permissions.AllowAny]
+    http_method_names = ['get']
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -27,7 +36,7 @@ class EveningViewSet(viewsets.ModelViewSet):
 
 class TransportViewSet(viewsets.ModelViewSet):
     """
-    API Endpoint to view Evenings
+    API Endpoint to view Transports
     """
     queryset = Transport.objects.all()
     serializer_class = TransportSerializer
@@ -37,7 +46,7 @@ class TransportViewSet(viewsets.ModelViewSet):
 
 class EventViewSet(viewsets.ModelViewSet):
     """
-    API Endpoint to view Evenings
+    API Endpoint to view Events
     """
     queryset = Event.objects.all().order_by('date', 'play')
     serializer_class = EventSerializer

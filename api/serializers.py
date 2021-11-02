@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from .models import Category, Evening, Event, Transport
+from .models import Category, Evening, Event, Transport, Season
+
+
+class SeasonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Season
+        fields = ["id", "name", "active", "url"]
 
 
 class CategorySerializer(serializers.ModelSerializer):

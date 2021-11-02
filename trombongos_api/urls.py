@@ -4,6 +4,7 @@ from rest_framework import routers
 from api import views
 
 router = routers.DefaultRouter()
+router.register(r'seasons', views.SeasonViewSet)
 router.register(r'categories', views.CategoryViewSet)
 router.register(r'evenings', views.EveningViewSet)
 router.register(r'transports', views.TransportViewSet)
