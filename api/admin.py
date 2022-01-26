@@ -1,17 +1,13 @@
 from django.contrib import admin
-from .models import Category, Evening, Transport, Event, Season
+from .models import Category, Transport, Event, Season
 
 
 class SeasonAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "active")
+    list_display = ("name", "active")
 
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "date_start", "date_end", "sort", "active", "public")
-
-
-class EveningAdmin(admin.ModelAdmin):
-    list_display = ("name", "date", "season", "category")
 
 
 class TransportAdmin(admin.ModelAdmin):
@@ -21,9 +17,9 @@ class TransportAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = (
         "name",
-        "season",
-        "category",
         "date",
+        "day",
+        "season",
         "transport",
         "ca_makeup",
         "makeup",
@@ -37,11 +33,11 @@ class EventAdmin(admin.ModelAdmin):
         "public",
         "active",
         "fix",
+        "cert",
     )
 
 
 admin.site.register(Season, SeasonAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Evening, EveningAdmin)
 admin.site.register(Transport, TransportAdmin)
 admin.site.register(Event, EventAdmin)

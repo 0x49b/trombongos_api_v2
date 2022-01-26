@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 DAYS = [
     ("Montag", "Montag",),
@@ -8,6 +9,12 @@ DAYS = [
     ("Freitag", "Freitag",),
     ("Samstag", "Samstag",),
     ("Sonntag", "Sonntag",)
+]
+
+CERT = [
+    (0, "2G+"),
+    (1, "2G"),
+    (2, "3G"),
 ]
 
 
@@ -40,21 +47,6 @@ class Category(models.Model):
         return self.name
 
 
-class Evening(models.Model):
-    class Meta:
-        verbose_name = "Abend"
-        verbose_name_plural = "Abende"
-        ordering = ('-date',)
-
-    name = models.CharField(max_length=10, null=False, blank=False, choices=DAYS)
-    date = models.DateField()
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
-
-    def __str__(self):
-        return "%s %s" % (self.name, self.date)
-
-
 class Transport(models.Model):
     class Meta:
         verbose_name = "Transport"
@@ -72,12 +64,13 @@ class Event(models.Model):
     class Meta:
         verbose_name = "Event"
         verbose_name_plural = "Events"
-        ordering = ('-date', 'play')
+        ordering = ('date', 'play')
 
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=512, null=False, blank=False)
-    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
+    day = models.CharField(max_length=10, null=False, blank=False, choices=DAYS)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    evening = models.ForeignKey(Evening, on_delete=models.DO_NOTHING)
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
     date = models.DateField()
     transport = models.ForeignKey(Transport, on_delete=models.DO_NOTHING)
     ca_makeup = models.BooleanField(default=False)
@@ -92,6 +85,12 @@ class Event(models.Model):
     public = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
     fix = models.BooleanField(default=True)
+    cert = models.IntegerField(choices=CERT, default=None, null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.uuid is None:
+            self.uuid = uuid.uuid4()
+        super(Event, self).save(*args, **kwargs)
