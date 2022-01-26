@@ -19,7 +19,6 @@ LABEL traefik.http.services.trbapi.loadbalancer.server.port="8000"
 ENV PROJECT=trbapi
 ENV CONTAINER_HOME=/opt
 ENV CONTAINER_PROJECT=$CONTAINER_HOME/$PROJECT
-ENV PERMANENT_CLOSED="22.01.2021 23:59:59"
 
 # Image updates
 # RUN apt-get update && apt-get upgrade
