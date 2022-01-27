@@ -63,56 +63,34 @@ class TourViewSet(viewsets.ModelViewSet):
         season = Season.objects.get(active=True)
         categories = Category.objects.all()
 
-        events = Event.objects.filter(season=season, active=True).order_by("date", "sort")
-
-        dates = []
-        for e in events:
-            dates.append(e.date)
-        dates = [set(dates)]
-        print(dates)
-
         cats = []
+
         for cat in categories:
-            events = Event.objects.filter(Q(date__gte=datetime.datetime.now()), category=cat, season=season,
-                                          active=True).order_by("date", "sort")
+            events = Event.objects.filter(Q(date__gte=datetime.datetime.now()), category=cat, season=season)
+            eve = []
 
-            dates = []
-            for e in events:
-                dates.append(e.date)
-            dates = set(dates)
-
-            dnew = []
-
-            for date in dates:
-                events_qs = Event.objects.filter(Q(date__gte=datetime.datetime.now()), date=date, category=cat,
-                                                 season=season, active=True).order_by("date", "sort")
-
-                eve = []
-                for ev in events:
-                    e = {
-                        "id": ev.uuid,
-                        "name": ev.name,
-                        "date": ev.date.strftime(self.dateformat),
-                        "day": ev.get_day_display(),
-                        "ca_makeup": ev.ca_makeup,
-                        "makeup": ev.makeup,
-                        "warehouse": ev.warehouse,
-                        "sun": ev.sun,
-                        "gathering": ev.gathering.strftime(self.timeformat),
-                        "ca_play": ev.ca_play,
-                        "play": ev.play.strftime(self.timeformat),
-                        "transport": ev.transport.name,
-                        "trailer": ev.trailer,
-                        "info": ev.information,
-                        "cert": ev.get_cert_display(),
-                        "active": ev.active,
-                        "public": ev.public,
-                        "fix": ev.fix,
-                    }
-                    eve.append(e)
-                    dnew.append({
-
-                    })
+            for ev in events:
+                e = {
+                    "id": ev.uuid,
+                    "name": ev.name,
+                    "date": ev.date.strftime(self.dateformat),
+                    "day": ev.get_day_display(),
+                    "ca_makeup": ev.ca_makeup,
+                    "makeup": ev.makeup,
+                    "warehouse": ev.warehouse,
+                    "sun": ev.sun,
+                    "gathering": ev.gathering.strftime(self.timeformat),
+                    "ca_play": ev.ca_play,
+                    "play": ev.play.strftime(self.timeformat),
+                    "transport": ev.transport.name,
+                    "trailer": ev.trailer,
+                    "info": ev.information,
+                    "cert": ev.get_cert_display(),
+                    "active": ev.active,
+                    "public": ev.public,
+                    "fix": ev.fix,
+                }
+                eve.append(e)
 
             c = {
                 "title": cat.name,
@@ -120,7 +98,7 @@ class TourViewSet(viewsets.ModelViewSet):
                 "date_end": cat.date_end.strftime(self.dateformat),
                 "public": cat.public,
                 "evening_count": events.count(),
-                "evenings": dates
+                "evenings": eve
             }
 
             cats.append(c)
