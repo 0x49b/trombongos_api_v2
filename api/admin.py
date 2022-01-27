@@ -15,25 +15,20 @@ class TransportAdmin(admin.ModelAdmin):
 
 
 class EventAdmin(admin.ModelAdmin):
+
+    list_filter = ("day", "category")
     list_display = (
         "name",
-        "date",
         "day",
+        "date",
         "season",
         "transport",
-        "ca_makeup",
-        "makeup",
-        "warehouse",
-        "sun",
-        "gathering",
-        "ca_play",
         "play",
-        "trailer",
-        "information",
         "public",
         "active",
         "fix",
         "cert",
+        "sort",
     )
 
 

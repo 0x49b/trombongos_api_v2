@@ -64,7 +64,7 @@ class Event(models.Model):
     class Meta:
         verbose_name = "Event"
         verbose_name_plural = "Events"
-        ordering = ('date', 'play')
+        ordering = ('date', 'sort')
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=512, null=False, blank=False)
@@ -86,6 +86,7 @@ class Event(models.Model):
     active = models.BooleanField(default=True)
     fix = models.BooleanField(default=True)
     cert = models.IntegerField(choices=CERT, default=None, null=True, blank=True)
+    sort = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
