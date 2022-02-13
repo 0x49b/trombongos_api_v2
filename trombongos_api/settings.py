@@ -17,6 +17,7 @@ INSTALLED_APPS = [
 
     # Third Party
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_multiple_model',
     "corsheaders",
 
@@ -96,3 +97,9 @@ CORS_ALLOWED_ORIGINS = [
     "https://tour.trombongos.ch",
     "https://tour-test.trombongos.ch",
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}

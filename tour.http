@@ -1,0 +1,4 @@
+GET http://localhost:8000/api/v1/tour/?format=json
+Accept: application/json
+Authorization: Token 384bf0ce46b4c3a33e124812a1b57bde52afd113
+###

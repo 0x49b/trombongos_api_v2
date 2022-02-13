@@ -66,7 +66,9 @@ class TourViewSet(viewsets.ModelViewSet):
         cats = []
 
         for cat in categories:
+
             events = Event.objects.filter(Q(date__gte=datetime.datetime.now()), category=cat, season=season)
+
             eve = []
 
             for ev in events:
@@ -85,6 +87,7 @@ class TourViewSet(viewsets.ModelViewSet):
                     "id": ev.uuid,
                     "name": ev.name,
                     "date": ev.date.strftime(self.dateformat),
+                    "firstOnDay": True,
                     "day": ev.get_day_display(),
                     "ca_makeup": ev.ca_makeup,
                     "makeup": makeup,
@@ -102,6 +105,17 @@ class TourViewSet(viewsets.ModelViewSet):
                     "fix": ev.fix,
                 }
                 eve.append(e)
+
+            i = 0
+
+            for e in eve:
+                if i > 0:
+                    index = eve.index(e)
+                    previous = eve[index - 1]
+
+                    if e['date'] == previous['date']:
+                        e['firstOnDay'] = False
+                i = i + 1
 
             c = {
                 "title": cat.name,
