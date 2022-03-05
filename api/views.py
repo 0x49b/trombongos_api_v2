@@ -67,7 +67,9 @@ class TourViewSet(viewsets.ModelViewSet):
 
         for cat in categories:
 
-            events = Event.objects.filter(Q(date__gte=datetime.datetime.now()), category=cat, season=season)
+            dt = datetime.datetime.now() - datetime.timedelta(minutes=15)
+
+            events = Event.objects.filter(Q(date__gte=datetime.datetime.now(), play__gte= dt), category=cat, season=season)
 
             eve = []
 
