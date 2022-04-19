@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Transport, Event, Season
+from .models import Category, Transport, Event, Season, Calendar
 
 
 class SeasonAdmin(admin.ModelAdmin):
@@ -15,7 +15,6 @@ class TransportAdmin(admin.ModelAdmin):
 
 
 class EventAdmin(admin.ModelAdmin):
-
     list_filter = ("day", "category", "season", "public", "active", "fix", "day", "date")
     list_display = (
         "name",
@@ -32,7 +31,12 @@ class EventAdmin(admin.ModelAdmin):
     )
 
 
+class CalendarAdmin(admin.ModelAdmin):
+    list_display = ('name', 'season', 'register', 'from_date', 'from_time')
+
+
 admin.site.register(Season, SeasonAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Transport, TransportAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(Calendar, CalendarAdmin)

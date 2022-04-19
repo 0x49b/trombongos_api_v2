@@ -18,6 +18,12 @@ CERT = [
     (3, "3G+"),
 ]
 
+REGISTER = [
+    (0, "Gesamt"),
+    (1, "Bläser"),
+    (2, "Schläger")
+]
+
 
 class Season(models.Model):
     class Meta:
@@ -96,3 +102,23 @@ class Event(models.Model):
         if self.uuid is None:
             self.uuid = uuid.uuid4()
         super(Event, self).save(*args, **kwargs)
+
+
+class Calendar(models.Model):
+    class Meta:
+        verbose_name = "Kalender"
+        verbose_name_plural = "Kalender"
+        ordering = ('season', 'from_date', 'from_time')
+
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=1024, null=False, blank=False)
+    season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
+    register = models.IntegerField(choices=REGISTER, default=0)
+    from_date = models.DateField(null=False, blank=False)
+    until_date = models.DateField(null=True, blank=True)
+    from_time = models.TimeField(null=True, blank=True, verbose_name="From")
+    until_time = models.TimeField(null=True, blank=True, verbose_name="Until")
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
