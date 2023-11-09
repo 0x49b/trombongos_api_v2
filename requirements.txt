@@ -1,4 +1,4 @@
-asgiref==3.3.4
+asgiref==3.7.2
 beautifulsoup4==4.12.2
 certifi==2023.7.22
 chardet==5.2.0
