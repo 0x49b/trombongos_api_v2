@@ -1,5 +1,8 @@
 import uuid
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
+from django.conf import settings
 from django.db import models
 
 DAYS = [
@@ -123,3 +126,52 @@ class Calendar(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TourCalendar(models.Model):
+    class Meta:
+        verbose_name = "Tour Kalender"
+        verbose_name_plural = "Tour Kalender"
+        ordering = ('category',)
+
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255, null=True, blank=True)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    from_dt = models.DateTimeField(verbose_name='From', blank=True, null=True)
+    to_dt = models.DateTimeField(verbose_name='To', blank=True, null=True)
+    season = models.ForeignKey('Season', on_delete=models.CASCADE)
+    reset_period = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Tour Kalender für {self.category.name}'
+
+    def save(self, *args, **kwargs):
+        start_event = Event.objects.all().filter(category=self.category).order_by('date', 'sort').first()
+        end_event = Event.objects.all().filter(category=self.category).order_by('date', 'sort').last()
+        date_format = "%Y-%m-%d %H:%M:%S"
+
+        self.name = self.category.name
+
+        if self.from_dt is None or self.reset_period:
+            if start_event.makeup is not None:
+                from_ts_string = f'{start_event.date} {start_event.makeup}'
+            else:
+                from_ts_string = f'{start_event.date} {start_event.play}'
+            start_ts = datetime.strptime(from_ts_string, date_format)
+            start_ts = datetime(start_ts.year, start_ts.month, start_ts.day, start_ts.hour, start_ts.minute,
+                                start_ts.second,
+                                tzinfo=ZoneInfo(settings.TIME_ZONE))
+            self.from_dt = start_ts
+
+        if self.to_dt is None or self.reset_period:
+            to_ts_string = f'{end_event.date} {end_event.play}'
+            end_ts = datetime.strptime(to_ts_string, date_format)
+            end_ts = end_ts + timedelta(minutes=30)
+            end_ts = datetime(end_ts.year, end_ts.month, end_ts.day, end_ts.hour, end_ts.minute, end_ts.second,
+                              tzinfo=ZoneInfo(settings.TIME_ZONE))
+
+            self.to_dt = end_ts
+
+        self.reset_period = False
+
+        super(TourCalendar, self).save(*args, **kwargs)

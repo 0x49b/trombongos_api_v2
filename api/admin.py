@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Transport, Event, Season, Calendar
+from .models import Category, Transport, Event, Season, Calendar, TourCalendar
 
 
 class SeasonAdmin(admin.ModelAdmin):
@@ -34,6 +34,19 @@ class EventAdmin(admin.ModelAdmin):
 
 class CalendarAdmin(admin.ModelAdmin):
     list_display = ('name', 'season', 'register', 'from_date', 'from_time')
+
+
+@admin.register(TourCalendar)
+class TourCalendarAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'from_dt', 'to_dt', 'season')
+    readonly_fields = ('name',)
+    actions = ('reset_periods',)
+
+    @admin.action(description='Reset Periods')
+    def reset_periods(self, request, queryset):
+        queryset.update(reset_period=True)
+        for i in queryset:
+            i.save()
 
 
 admin.site.register(Season, SeasonAdmin)
