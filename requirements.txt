@@ -7,7 +7,7 @@ dj-database-url==0.5.0
 Django==3.2
 django-colorfield==0.4.1
 django-cors-headers==3.11.0
-django-crispy-forms==1.11.2
+django-crispy-forms==1.14.0
 django-filter==23.3
 django-ical==1.9.2
 django-recurrence==1.11.1
