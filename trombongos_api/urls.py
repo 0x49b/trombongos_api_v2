@@ -16,7 +16,8 @@ router.register(r'tour', views.TourViewSet, basename='tour')
 urlpatterns = [
     path('', core_views.root_view),
     path('admin/', admin.site.urls),
-    path('saison/feed.ics', EventFeed()),
+    path('saison/', core_views.saison_view, name='saison-feed'),
+    path('saison/feed', EventFeed()),
     path('api/v1/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 
 def root_view(request):
@@ -6,3 +6,7 @@ def root_view(request):
 
     # Redirect to another URL path
     return redirect('/api/v1/')
+
+
+def saison_view(request):
+    return render(request, 'saison.html')
