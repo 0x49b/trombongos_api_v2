@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('api', '0004_calendar_register'),
     ]
@@ -12,7 +11,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='calendar',
-            options={'ordering': ('season', 'from_date', 'from_time'), 'verbose_name': 'Kalender', 'verbose_name_plural': 'Kalender'},
+            options={'ordering': ('season', 'from_date', 'from_time'), 'verbose_name': 'Kalender',
+                     'verbose_name_plural': 'Kalender'},
         ),
         migrations.AlterField(
             model_name='calendar',
