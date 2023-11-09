@@ -6,7 +6,8 @@ from dj_database_url import parse as db_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecurefkjsdafkshdgflshdjgfkjhsag'  # config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
-ALLOWED_HOSTS = ['*']  # config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
 
 INSTALLED_APPS = [
     'django.contrib.admin',
