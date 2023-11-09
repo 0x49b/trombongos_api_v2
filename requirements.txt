@@ -8,7 +8,7 @@ Django==3.2
 django-colorfield==0.4.1
 django-cors-headers==3.11.0
 django-crispy-forms==1.11.2
-django-filter==21.1
+django-filter==23.3
 django-ical==1.9.2
 django-recurrence==1.11.1
 django-rest-multiple-models==2.1.3
