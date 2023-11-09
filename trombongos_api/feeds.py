@@ -9,7 +9,7 @@ class EventFeed(ICalFeed):
     """
     A simple event calender
     """
-    product_id = '-//trombongos.ch//Tour//EN'
+    product_id = '-//trombongos.ch//Tour//DE'
     timezone = 'Europe/Zurich'
     file_name = "saison.ics"
 
@@ -66,4 +66,4 @@ class EventFeed(ICalFeed):
         return time_end_add_delta
 
     def item_link(self, item):
-        return ""
+        return f'https://trbapi.thievent.org/api/v1/categories/{item.id}/'
