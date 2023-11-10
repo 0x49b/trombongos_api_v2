@@ -30,7 +30,7 @@ jobs:
           method: "POST"
           accept: 200,201,204
           body: '{}'
-          timeout: 1000
+          timeout: 10000
           log-response: true
           retries: 3
 
