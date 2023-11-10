@@ -69,4 +69,4 @@ class EventFeed(ICalFeed):
         return item.to_dt
 
     def item_link(self, item):
-        return f'https://trbapi.thievent.org/api/v1/{item.id}'
+        return "" #f'https://trbapi.thievent.org/api/v1/{item.id}'
