@@ -23,19 +23,8 @@ jobs:
         with:
           push: true
           tags: fthievent/trombongos-api:latest
-      - name: "Call API"
-        uses: indiesdev/curl@v1.1
+      - name: curl
+        uses: wei/curl@v1
         with:
-          url: https://console.thievent.org/api/webhooks/9b198a64-7a42-4b80-98d3-f8838d06c636
-          method: "POST"
-          accept: 200,201,204
-          body: '{}'
-          timeout: 10000
-          log-response: true
-          retries: 3
-
-          # If you want to use axios config directly, you can pass a config file to the action
-          # The file is just basically a json file that has the same format as axios config https://github.com/axios/axios#request-config
-          # If this input is set, it will ignore other inputs related to the config
-          # The path file is relative to the root directory of the repo
-          # custom-config: .github/workflows/curl-config.json
+          args: -X POST https://console.thievent.org/api/webhooks/9b198a64-7a42-4b80-98d3-f8838d06c636
+     
