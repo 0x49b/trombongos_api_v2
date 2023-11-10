@@ -1,8 +1,6 @@
-import uuid
-
 from django_ical.views import ICalFeed
 
-from api.models import TourCalendar
+from api.models import TourCalendar, Event
 
 
 class EventFeed(ICalFeed):
@@ -18,29 +16,30 @@ class EventFeed(ICalFeed):
         tour = TourCalendar.objects.all().filter(season__active=True).order_by('category__sort')
         return tour
 
+    def item_guid(self, item):
+        return f'{item.uuid}@trombongos.ch'
+
     def item_title(self, item):
         return item.name
 
     def item_description(self, item):
-        '''
-         events = Event.objects.all().filter(category=item).order_by('-date', 'sort')
+        if item.fetch_events:
+            events = Event.objects.all().filter(category=item.category).filter(season__active=True).order_by(
+                'category__sort')
 
-         description_string = ""
-         for event in events:
+            description_string = "Termine heute:\n\n"
+            for event in events:
 
-             if event.makeup is not None:
-                 description_string = description_string + f'Schminken {event.makeup} Uhr\n\n'
+                if event.makeup is not None:
+                    description_string = description_string + f'{event.makeup} Uhr - Schminken Magazin\n\n'
+                if event.sun is not None:
+                    description_string = description_string + f'{event.warehouse} Uhr - Abfahrt Car Magazin\n{event.sun} Uhr Abfahrt Car Sonne\n\n'
 
-             print(event.transport)
+                description_string = description_string + f'{event.play} - {event.name}\n'
 
-             if event.transport == 'Car':
-                 description_string = description_string + f'Abfahrt Car Magazin {event.warehouse} Uhr\nAbfahrt Car Sonne {event.sun} Uhr'
-
-             description_string = description_string + f'{event.play} - {event.name}\n'
-
-         # return description_string
-         '''
-        return ""
+            return description_string
+        else:
+            return ""
 
     def item_start_datetime(self, item):
         '''

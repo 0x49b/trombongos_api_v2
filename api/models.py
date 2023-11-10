@@ -130,8 +130,8 @@ class Calendar(models.Model):
 
 class TourCalendar(models.Model):
     class Meta:
-        verbose_name = "Tour Kalender"
-        verbose_name_plural = "Tour Kalender"
+        verbose_name = "Tour Kalender Feed"
+        verbose_name_plural = "Tour Kalender Feed"
         ordering = ('category',)
 
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -139,8 +139,12 @@ class TourCalendar(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     from_dt = models.DateTimeField(verbose_name='From', blank=True, null=True)
     to_dt = models.DateTimeField(verbose_name='To', blank=True, null=True)
-    season = models.ForeignKey('Season', on_delete=models.CASCADE)
+    season = models.ForeignKey('Season', on_delete=models.CASCADE, null=True, blank=True)
+    sort = models.IntegerField(null=True, blank=True)
+
     reset_period = models.BooleanField(default=False)
+    reset_name = models.BooleanField(default=False)
+    fetch_events = models.BooleanField(default=True)
 
     def __str__(self):
         return f'Tour Kalender für {self.category.name}'
@@ -150,7 +154,8 @@ class TourCalendar(models.Model):
         end_event = Event.objects.all().filter(category=self.category).order_by('date', 'sort').last()
         date_format = "%Y-%m-%d %H:%M:%S"
 
-        self.name = self.category.name
+        if self.name is None or self.reset_name:
+            self.name = self.category.name
 
         if self.from_dt is None or self.reset_period:
             if start_event.makeup is not None:
@@ -172,6 +177,11 @@ class TourCalendar(models.Model):
 
             self.to_dt = end_ts
 
+        if self.season is None:
+            self.season = Season.objects.all().filter(active=True).first()
+
+        # set resets to false in Database
         self.reset_period = False
+        self.reset_name = False
 
         super(TourCalendar, self).save(*args, **kwargs)
