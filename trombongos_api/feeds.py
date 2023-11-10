@@ -33,7 +33,7 @@ class EventFeed(ICalFeed):
                 if event.makeup is not None:
                     description_string = description_string + f'{event.makeup} Uhr - Schminken Magazin\n\n'
                 if event.sun is not None:
-                    description_string = description_string + f'{event.warehouse} Uhr - Abfahrt Car Magazin\n{event.sun} Uhr Abfahrt Car Sonne\n\n'
+                    description_string = description_string + f'{event.warehouse} Uhr - Abfahrt Car Magazin\n{event.sun} Uhr - Abfahrt Car Sonne\n\n'
 
                 description_string = description_string + f'{event.play} - {event.name}\n'
 
