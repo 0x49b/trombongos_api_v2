@@ -88,7 +88,7 @@ class Event(models.Model):
     makeup = models.TimeField(null=True, blank=True)
     warehouse = models.TimeField(null=True, blank=True)
     sun = models.TimeField(null=True, blank=True)
-    gathering = models.TimeField(null=False)
+    gathering = models.TimeField(null=True, blank=True)
     ca_play = models.BooleanField(default=False)
     play = models.TimeField(null=False)
     trailer = models.CharField(max_length=256, null=True, blank=True)
