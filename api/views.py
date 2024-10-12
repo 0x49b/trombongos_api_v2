@@ -76,12 +76,15 @@ class TourViewSet(viewsets.ModelViewSet):
                 warehouse = ev.warehouse
                 makeup = ev.makeup
                 sun = ev.sun
+                gathering = ev.gathering
                 if ev.warehouse is not None:
                     warehouse = ev.warehouse.strftime(self.timeformat)
                 if ev.makeup is not None:
                     makeup = ev.makeup.strftime(self.timeformat)
                 if ev.sun is not None:
                     sun = ev.sun.strftime(self.timeformat)
+                if ev.gathering is not None:
+                    gathering = ev.gathering.strftime(self.timeformat)
 
                 e = {
                     "id": ev.uuid,
@@ -93,7 +96,7 @@ class TourViewSet(viewsets.ModelViewSet):
                     "makeup": makeup,
                     "warehouse": warehouse,
                     "sun": sun,
-                    "gathering": ev.gathering.strftime(self.timeformat),
+                    "gathering": gathering,
                     "ca_play": ev.ca_play,
                     "play": ev.play.strftime(self.timeformat),
                     "transport": ev.transport.name,
