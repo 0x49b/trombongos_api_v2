@@ -35,7 +35,7 @@ COPY . $CONTAINER_PROJECT
 RUN python -m pip install --upgrade pip setuptools
 
 # Install Python dependencies
-RUN pip install -r $CONTAINER_PROJECT/requirements.txt
+RUN pip install --verbose -r $CONTAINER_PROJECT/requirements.txt
 
 # Copy and set entrypoint
 WORKDIR $CONTAINER_PROJECT
