@@ -49,7 +49,7 @@ class Category(models.Model):
 
     name = models.CharField(max_length=512, blank=False, null=False)
     date_start = models.DateField()
-    date_end = models.DateField(null=True, blank=True)
+    date_end = models.DateField()
     sort = models.IntegerField(null=True, blank=True)
     active = models.BooleanField(default=True)
     public = models.BooleanField(default=True)
@@ -91,6 +91,7 @@ class Event(models.Model):
     gathering = models.TimeField(null=True, blank=True)
     ca_play = models.BooleanField(default=False)
     play = models.TimeField(null=False)
+    departure_home = models.TimeField(null=True, blank=True, verbose_name='Abfahrt Car nach Windisch')
     trailer = models.CharField(max_length=256, null=True, blank=True)
     information = models.TextField(null=True, blank=True)
     public = models.BooleanField(default=True)

@@ -41,6 +41,7 @@ class EventSerializer(serializers.ModelSerializer):
             "gathering",
             "ca_play",
             "play",
+            "departure_home",
             "trailer",
             "information",
             "public",

@@ -99,6 +99,7 @@ class TourViewSet(viewsets.ModelViewSet):
                     "gathering": gathering,
                     "ca_play": ev.ca_play,
                     "play": ev.play.strftime(self.timeformat),
+                    "departure_home": ev.departure_home.strftime(self.timeformat),
                     "transport": ev.transport.name,
                     "trailer": ev.trailer,
                     "info": ev.information,
