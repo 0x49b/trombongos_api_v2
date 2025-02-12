@@ -31,6 +31,9 @@ RUN echo "" > $CONTAINER_PROJECT/logs/gunicorn.log
 # Copy application source code to $CONTAINER_PROJECT
 COPY . $CONTAINER_PROJECT
 
+#Upgrade Pip and setuptools
+RUN python -m pip install --upgrade pip setuptools
+
 # Install Python dependencies
 RUN pip install -r $CONTAINER_PROJECT/requirements.txt
 
