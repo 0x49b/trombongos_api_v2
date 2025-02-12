@@ -1,4 +1,4 @@
-FROM python:3.13
+FROM python:3.12
 
 LABEL Maintainer="Florian Thiévent"
 LABEL traefik.enable="true"
@@ -35,7 +35,7 @@ COPY . $CONTAINER_PROJECT
 RUN python -m pip install --upgrade pip setuptools
 
 # Install Python dependencies
-RUN pip install --verbose -r $CONTAINER_PROJECT/requirements.txt
+RUN pip install --verbose -r requirements.txt
 
 # Copy and set entrypoint
 WORKDIR $CONTAINER_PROJECT
@@ -43,4 +43,5 @@ COPY ./start.sh /
 RUN ["chmod", "+x", "/opt/trbapi/start.sh"]
 
 EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["/start.sh"]
