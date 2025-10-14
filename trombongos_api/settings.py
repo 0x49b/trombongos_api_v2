@@ -102,11 +102,26 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "https://trombongos.ch",
-    "https://tour.trombongos.ch",
-    "https://tour-test.trombongos.ch",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "https://trombongos.ch",
+#     "https://tour.trombongos.ch",
+#     "https://tour-test.trombongos.ch",
+#     "https://zp1v56uxy8rdx5ypatb0ockcb9tr6a-oci3--5173--96435430.local-credentialless.webcontainer-api.io",
+# ]
+
+CORS_ALLOWED_ORIGINS = config(
+    "CORS_ALLOWED_ORIGINS",
+    cast=Csv(),
+    default=[]
+)
+
+CORS_ALLOWED_ORIGIN_REGEXES = config(
+    "CORS_ALLOWED_ORIGIN_REGEXES",
+    cast=Csv(),
+    default=[]
+)
+
+CORS_ALLOW_CREDENTIALS = config("CORS_ALLOW_CREDENTIALS", cast=bool, default=False)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
