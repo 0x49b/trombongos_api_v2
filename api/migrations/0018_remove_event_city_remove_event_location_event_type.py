@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0018_event_city_event_location'),
+        ('api', '0017_alter_category_date_end_alter_event_departure_home'),
     ]
 
     operations = [
