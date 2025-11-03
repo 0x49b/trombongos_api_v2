@@ -10,14 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='event',
-            name='city',
-        ),
-        migrations.RemoveField(
-            model_name='event',
-            name='location',
-        ),
         migrations.AddField(
             model_name='event',
             name='type',
