@@ -33,6 +33,7 @@ class EventSerializer(serializers.ModelSerializer):
             "name",
             "date",
             "day",
+            "type",
             "transport",
             "ca_makeup",
             "makeup",

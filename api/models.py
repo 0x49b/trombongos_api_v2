@@ -1,9 +1,8 @@
 import uuid
 from datetime import datetime, timedelta
-from zoneinfo import ZoneInfo
-
 from django.conf import settings
 from django.db import models
+from zoneinfo import ZoneInfo
 
 DAYS = [
     ("Montag", "Montag",),
@@ -26,6 +25,13 @@ REGISTER = [
     (0, "Gesamt"),
     (1, "Bläser"),
     (2, "Schläger")
+]
+
+TYPE = [
+    (0, "Auftritt"),
+    (1, "Infos"),
+    (2, "GV"),
+    (3, "Anderes"),
 ]
 
 
@@ -83,6 +89,7 @@ class Event(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     season = models.ForeignKey(Season, on_delete=models.DO_NOTHING)
     date = models.DateField()
+    type = models.IntegerField(choices=TYPE, default=0, verbose_name="Art")
     transport = models.ForeignKey(Transport, on_delete=models.DO_NOTHING)
     ca_makeup = models.BooleanField(default=False)
     makeup = models.TimeField(null=True, blank=True)

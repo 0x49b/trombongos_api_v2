@@ -94,6 +94,8 @@ class TourViewSet(viewsets.ModelViewSet):
                     "id": ev.uuid,
                     "name": ev.name,
                     "date": ev.date.strftime(self.dateformat),
+                    "type": ev.type,
+                    "typeString": ev.get_type_display(),
                     "firstOnDay": True,
                     "day": ev.get_day_display(),
                     "ca_makeup": ev.ca_makeup,

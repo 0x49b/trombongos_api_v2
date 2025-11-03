@@ -25,13 +25,10 @@ class EventAdmin(admin.ModelAdmin):
         "name",
         "day",
         "date",
-        "season",
-        "transport",
         "play",
         "public",
-        "active",
         "fix",
-        "cert",
+        "type",
         "sort",
     )
 
