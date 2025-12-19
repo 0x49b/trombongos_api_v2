@@ -10,7 +10,7 @@ dependencies = [
     "dj-config-url==0.1.1",
     "dj-database-url==2.1.0",
     "django==5.1.2",
-    "django-admin-interface==0.26.1",
+    "django-admin-interface==0.32.0",
     "django-colorfield==0.11.0",
     "django-cors-headers==4.3.0",
     "django-crispy-forms==2.1",
