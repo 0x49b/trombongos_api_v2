@@ -79,15 +79,15 @@ wheels = [
 
 [[package]]
 name = "django-admin-interface"
-version = "0.26.1"
+version = "0.32.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django-colorfield" },
     { name = "python-slugify" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c5/3b/cd7b42a7845e6e0e2d46c8975188f03ca18be5911788e15205993b1e305c/django-admin-interface-0.26.1.tar.gz", hash = "sha256:46d2e555e74c2439233d0c06bf826e973005cd153f2d1051ad07e41af0d5a439", size = 192776, upload-time = "2023-09-05T16:46:36.447Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3e/09/d0b1a037bb11dc0d50e610e5f2818caa0eded9285aae0963703655692820/django_admin_interface-0.32.0.tar.gz", hash = "sha256:d0e80e382a7084ff59d0ba06934d6690fb6c04bb5327574f4c03b602fe41219c", size = 201052, upload-time = "2025-12-19T01:34:36.693Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/53/8c/11f9bde4ecd2c94d1847d42b813b999f45311cc7f0ad76a311909df4d9f3/django_admin_interface-0.26.1-py3-none-any.whl", hash = "sha256:cf38a8e54d431eab13809cd52d861c4beb5c203d66083484a9a2013c8804b877", size = 243731, upload-time = "2023-09-05T16:46:34.444Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/85/3d5fbe90a1b52bbc650986e9a24284f2ad20eec8cd59cb99ba96a645d76f/django_admin_interface-0.32.0-py3-none-any.whl", hash = "sha256:f3684cfb857c12dd0befc95d5d45ac8a04840d54ad7d5920a9a10f3606e1bdcf", size = 266349, upload-time = "2025-12-19T01:34:35.016Z" },
 ]
 
 [[package]]
@@ -451,7 +451,7 @@ requires-dist = [
     { name = "dj-config-url", specifier = "==0.1.1" },
     { name = "dj-database-url", specifier = "==2.1.0" },
     { name = "django", specifier = "==5.1.2" },
-    { name = "django-admin-interface", specifier = "==0.26.1" },
+    { name = "django-admin-interface", specifier = "==0.32.0" },
     { name = "django-colorfield", specifier = "==0.11.0" },
     { name = "django-cors-headers", specifier = "==4.3.0" },
     { name = "django-crispy-forms", specifier = "==2.1" },
